@@ -43,6 +43,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "core-js": "^2.6.11",
+    "d3": "^5.16.0",
     "flag-icon-css": "^3.4.6",
     "font-awesome": "^4.7.0",
     "moment": "^2.24.0",
