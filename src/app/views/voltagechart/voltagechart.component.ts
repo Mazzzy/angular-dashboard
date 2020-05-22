@@ -2,17 +2,24 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
+import {  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+import { DataService } from './data.service';
+
 @Component({
   templateUrl: 'voltagechart.component.html'
 })
 export class VoltageChartComponent implements OnInit, OnDestroy {
 
   radioModel: string = 'Month';
-  
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private dataService: DataService) { }
+
   // lineChart1
   public lineChart1Data: Array<any> = [
     {
-      data: [65, 59, 84, 84, 51, 55, 40],
+      data: [],
       label: 'Series A'
     }
   ];
@@ -167,5 +174,29 @@ export class VoltageChartComponent implements OnInit, OnDestroy {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  
+  ngOnInit(): void {
+    // generate random values for mainChart
+    for (let i = 0; i <= this.mainChartElements; i++) {
+      this.mainChartData1.push(this.random(50, 200));
+      this.mainChartData2.push(this.random(80, 100));
+      this.mainChartData3.push(65);
+    }
+
+    // get the chart data
+    this.dataService.sendChartData()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any[]) => {
+        if(data) {
+          console.log('Chart data', data);
+          this.lineChart1Data[0]["data"] = data
+        }
+    });  
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Unsubscribe from the subject
+    this.destroy$.unsubscribe();
+    console.log('Chart data Unsubscribed')
+  }
 }
