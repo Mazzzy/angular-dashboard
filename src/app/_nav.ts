@@ -30,7 +30,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Voltage',
-    url: '/voltagechart',
+    url: '/voltage',
     icon: 'icon-lightbulb'
   },
   {

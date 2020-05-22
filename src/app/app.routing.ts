@@ -79,8 +79,8 @@ export const routes: Routes = [
         loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
       },
       {
-        path: 'voltagechart',
-        loadChildren: () => import('./views/voltagechart/voltagechart.module').then(m => m.VoltageChartModule)
+        path: 'voltage',
+        loadChildren: () => import('./views/voltage/voltage.module').then(m => m.VoltageModule)
       },
       {
         path: 'widgets',

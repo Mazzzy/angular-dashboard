@@ -4,17 +4,18 @@ import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
-import { VoltageChartComponent } from './voltagechart.component';
-import { VoltageChartRoutingModule } from './voltagechart-routing.module';
+import { VoltageComponent } from './voltage.component';
+import { VoltageRoutingModule } from './voltage-routing.module';
+import { LinechartComponent } from './linechart/linechart.component';
 
 @NgModule({
   imports: [
     FormsModule,
-    VoltageChartRoutingModule,
+    VoltageRoutingModule,
     ChartsModule,
     BsDropdownModule,
     ButtonsModule.forRoot()
   ],
-  declarations: [ VoltageChartComponent ]
+  declarations: [ VoltageComponent, LinechartComponent ]
 })
-export class VoltageChartModule { }
+export class VoltageModule { }
