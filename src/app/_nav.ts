@@ -26,6 +26,15 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
+    name: 'Battery Data'
+  },
+  {
+    name: 'Voltage',
+    url: '/voltagechart',
+    icon: 'icon-lightbulb'
+  },
+  {
+    title: true,
     name: 'Components'
   },
   {
