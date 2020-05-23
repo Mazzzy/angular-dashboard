@@ -9,9 +9,7 @@ import { DataService } from './data.service';
 })
 
 export class VoltageComponent implements OnInit, OnDestroy {
-  batteryData: any[];
-  radioModel: string = 'Month';
-
+  public batteryData: any[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private dataService: DataService) { }
 

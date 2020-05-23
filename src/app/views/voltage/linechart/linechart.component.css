@@ -1,0 +1,4 @@
+.filter-menu {
+    max-height: 60vh;
+    overflow: auto;
+}

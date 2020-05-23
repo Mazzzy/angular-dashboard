@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
   {
     name: 'Voltage',
     url: '/voltage',
-    icon: 'icon-lightbulb'
+    icon: 'icon-bag'
   },
   {
     title: true,
