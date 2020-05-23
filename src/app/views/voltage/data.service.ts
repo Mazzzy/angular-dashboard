@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import chartData from './data/chart-data';
+import * as data from './data/batteryData.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private chartSource = new BehaviorSubject<any>(chartData);
-  chartDataList = this.chartSource.asObservable();
+  private batteryData: any = (data as any).default;
+
+  private dataSource = new BehaviorSubject<any>(this.batteryData);
+  dataList = this.dataSource.asObservable();
 
   constructor() { }
   
-  public sendChartData(){
-    return this.chartDataList;
+  public sendBatteryData(){
+    return this.dataList;
   }
 }
