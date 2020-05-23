@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { VoltageChartComponent } from './voltagechart.component';
+import { VoltageComponent } from './voltage.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VoltageChartComponent,
+    component: VoltageComponent,
     data: {
-      title: 'VoltageChart'
+      title: 'Voltage'
     }
   }
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class VoltageChartRoutingModule {}
+export class VoltageRoutingModule {}
