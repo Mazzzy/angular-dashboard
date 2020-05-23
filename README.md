@@ -17,7 +17,7 @@ It has been implemented with below aspects,
 
 ## During execution 
 
-![Implemented chart in dashboard screenshot](https://raw.githubusercontent.com/Mazzzy/angular-dashboard/master/screenshots/angular-template-d3-chart-dashboard.png)
+![Implemented chart in dashboard screenshot](https://raw.githubusercontent.com/Mazzzy/angular-dashboard/46bac831fb6dd734c8c554c611318d35d1ddf9be/screenshots/angular-template-d3-chart-dashboard.png)
 
 ## Application
 #### New module made
