@@ -1,3 +1,29 @@
+/**
+ * Custom component to create line charts using pure d3.js
+ * Date: 23 May 20
+ * @Features:
+ *  * Custom dropdown to select cell type
+ *  * Line chart created with voltage on Y axis and time on X axis
+ *  * Plotting of co-ordinates on the basis of Date and either of cell value (eg: c1/c2/.../c72)
+ *  * Transition effect during re-draw of line
+ *  * Range based colors as per the selected value from dropdown
+ *
+ * @Modules:
+ *   d3: for SchemeSet2 | define range set for random colors respective to line
+ *   d3Select: for elements selection
+ *   d3Scale: for axes scale
+ *   d3Shape: for line creation
+ *   d3Array: for values and axes domain
+ *   d3Axis: for axis positioning
+ * @Input: 
+ *   batteryData as input param from parent
+ * @Output:
+ *   linechart using d3
+ * @Angular-Practises used:
+ *   Modularized code as per the sepration of concerns (DESIGN principle)
+ *   Caching of data (instead of getting directly using 'this')
+ *   type defined for respective variables / methods
+ */
 import { Component, OnInit, Input } from '@angular/core';
 
 import * as d3 from 'd3';
@@ -38,7 +64,6 @@ export class LinechartComponent implements OnInit {
   ngOnInit(): void {
     this.initSvg();
     this.initSelect();
-    // by default initialization
     this.initAxis();
     this.drawAxis();
     this.initDrawingPath();
@@ -46,17 +71,20 @@ export class LinechartComponent implements OnInit {
   }
 
   private initSvg() {
+    // created the base for drawing
     this.svg = d3Select.select('svg')
     .append('g')
     .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
   private initSelect() {
+    // values to populate in dropdown based on the given keys in data
     let filteredCellNames = Object.keys(this.batteryData[0]);
+    // respective color ranges as per CellNames
     this.customLineColor = d3Scale.scaleOrdinal()
       .domain(this.cellNames)
       .range(d3.schemeSet2);
-    
+    // set the CellNames
     this.cellNames = filteredCellNames;
   }
 
@@ -64,19 +92,22 @@ export class LinechartComponent implements OnInit {
     let batteryData = this.batteryData;
     let cellName = this.selectedCellName;
 
-    //this.x = d3Scale.scaleUtc().range([0, this.width]);
     this.x = d3Scale.scaleTime().range([0, this.width]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
+
+    // X axis for date (time) and Y axis for voltage value
     this.x.domain(d3Array.extent(batteryData, (d:any) => new Date(d.date) ));
     this.y.domain(d3Array.extent(batteryData, (d:any) => d[cellName] ));
   }
 
   private drawAxis() {
+    // draw X axis
     this.svg.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x));
-
+    
+    // draw Y axis
     this.svg.append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y))
@@ -91,22 +122,23 @@ export class LinechartComponent implements OnInit {
 
   private initDrawingPath () {
     let batteryData = this.batteryData;
+    // path is drawn and reused to replot line
     this.drawnPath = this.svg.append('path')
       .datum(batteryData)
       .attr('class', 'line')
       .attr("fill", "none")
-      .attr("stroke-width", 2)
-    ;
+      .attr("stroke-width", 2);
   }
 
   private drawLine() {
     let cellName = this.selectedCellName;
-    
+    // create new line based on selected cellName (its values eg: c1/c2/..../c72)
     this.line = d3Shape.line()
       .defined( (d:any) => !isNaN(d[cellName]))
       .x( (d: any) => this.x(new Date(d.date)) )
       .y( (d: any) => this.y(d[cellName]) );
 
+    // redraw line along with transition effect and new color
     this.drawnPath 
       .transition()
       .duration(1000)
@@ -114,9 +146,13 @@ export class LinechartComponent implements OnInit {
       .attr("stroke", (d:any) => this.customLineColor(cellName));
   }
 
+  // event handler for dropdown item click event
   changeCellType(e) {
     let cellName = e.target ? (e.target.text).trim() : '';
+    // set the selected value
     this.selectedCellName = cellName;
+    
+    // redraw the line over given path
     this.drawLine();
   }
 
