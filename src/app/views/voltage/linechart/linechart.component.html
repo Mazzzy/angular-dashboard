@@ -1,0 +1,11 @@
+<div class="btn-group float-right" dropdown>
+    <button type="button" class="btn dropdown-toggle p-0" dropdownToggle>
+      <i class="icon-bulb"></i> {{selectedCellName}}
+    </button>
+    <div class="dropdown-menu dropdown-menu-right filter-menu" *dropdownMenu>
+      <a class="dropdown-item" *ngFor="let item of cellNames" (click)="changeCellType($event)">
+        {{ item }}
+      </a>
+    </div>
+</div><!-- /.custom-dropdown -->
+<svg width="900" height="500"></svg><!-- /.chart-container -->

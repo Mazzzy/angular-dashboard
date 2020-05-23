@@ -1,0 +1,21 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">D3 Chart</h4>
+                <div class="small text-muted">Battery cell voltage usage against time - Cell wise</div>
+            </div><!--/.col-->
+        </div><!--/.row-->
+        <div class="chart-wrapper">
+          <!-- d3 line chart -->
+          <app-linechart2 [batteryData]="batteryData"></app-linechart2>
+          <!--/. d3 line chart -->
+        </div>
+    </div>
+    <div class="card-footer">
+      <div class="small text-muted">Custom component, created by Mazahar Shaikh</div>
+    </div>
+  </div>
+  <!--/.card-->
+</div>
