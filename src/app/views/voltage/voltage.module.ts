@@ -1,8 +1,16 @@
+/**
+ * Custom module to demonstrate the line chart feature using d3 JS
+ * Date: 22 May 20
+ * @Input: 
+ *   CommonModule - to use ngFor
+ *   VoltageRoutingModule - for module specific routing (nesting)
+ *   BsDropdownModule - for bootstrap dropdown usage
+ * @Output:
+ *   Plug and play module for charting feature
+ */
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
+import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { VoltageComponent } from './voltage.component';
 import { VoltageRoutingModule } from './voltage-routing.module';
@@ -10,11 +18,9 @@ import { LinechartComponent } from './linechart/linechart.component';
 
 @NgModule({
   imports: [
-    FormsModule,
+    CommonModule,
     VoltageRoutingModule,
-    ChartsModule,
-    BsDropdownModule,
-    ButtonsModule.forRoot()
+    BsDropdownModule
   ],
   declarations: [ VoltageComponent, LinechartComponent ]
 })
