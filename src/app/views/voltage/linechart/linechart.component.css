@@ -1,6 +1,12 @@
 /**
  * Styles for line chart component
 */
+.filter-group {
+    bottom: 40px;
+}
+.filter-group button {
+    font-size: 16px;
+}
 .filter-menu {
     max-height: 60vh;
     overflow: auto;

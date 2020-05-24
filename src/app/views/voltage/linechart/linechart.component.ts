@@ -52,8 +52,8 @@ export class LinechartComponent implements OnInit {
   private drawnPath: any;
 
   // filter related items
-  private selectedCellName: string = "c1";
-  private cellNames: any = ["c1"];
+  private selectedCellName: string = 'c1';
+  private cellNames: any = [];
   private customLineColor: any;
 
   constructor() {
@@ -63,7 +63,7 @@ export class LinechartComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSvg();
-    this.initSelect();
+    this.initFilter();
     this.initAxis();
     this.drawAxis();
     this.initDrawingPath();
@@ -77,9 +77,11 @@ export class LinechartComponent implements OnInit {
     .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
-  private initSelect() {
+  private initFilter() {
     // values to populate in dropdown based on the given keys in data
     let filteredCellNames = Object.keys(this.batteryData[0]);
+    // remove unwanted 'key': 'date' from array
+    filteredCellNames.splice(1,1);
     // respective color ranges as per CellNames
     this.customLineColor = d3Scale.scaleOrdinal()
       .domain(this.cellNames)
@@ -103,16 +105,14 @@ export class LinechartComponent implements OnInit {
   private drawAxis() {
     // draw X axis
     this.svg.append('g')
-      .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x));
     
     // draw Y axis
     this.svg.append('g')
-      .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y))
       .append('text')
-      .attr('class', 'axis-title')
+      .attr('fill', '#000') 
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '.71em')
@@ -126,8 +126,8 @@ export class LinechartComponent implements OnInit {
     this.drawnPath = this.svg.append('path')
       .datum(batteryData)
       .attr('class', 'line')
-      .attr("fill", "none")
-      .attr("stroke-width", 2);
+      .attr('fill', 'none')
+      .attr('stroke-width', 2);
   }
 
   private drawLine() {
@@ -143,7 +143,7 @@ export class LinechartComponent implements OnInit {
       .transition()
       .duration(1000)
       .attr('d', this.line)
-      .attr("stroke", (d:any) => this.customLineColor(cellName));
+      .attr('stroke', (d:any) => this.customLineColor(cellName));
   }
 
   // event handler for dropdown item click event
