@@ -63,7 +63,7 @@ export class LinechartComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSvg();
-    this.initSelect();
+    this.initFilter();
     this.initAxis();
     this.drawAxis();
     this.initDrawingPath();
@@ -77,7 +77,7 @@ export class LinechartComponent implements OnInit {
     .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
-  private initSelect() {
+  private initFilter() {
     // values to populate in dropdown based on the given keys in data
     let filteredCellNames = Object.keys(this.batteryData[0]);
     // remove unwanted 'key': 'date' from array
